@@ -1,0 +1,7 @@
+samples,treatment,batch
+SRR123454.fastq,cond1,1
+SRR123455.fastq,cond1,2
+SRR123456.fastq,cond1,1
+SRR123457.fastq,cond1,2
+SRR123458.fastq,cond2,1
+SRR123459.fastq,cond2,2
