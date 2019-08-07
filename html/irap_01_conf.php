@@ -93,9 +93,9 @@
 <?php
 session_start();
 if (isset($_POST['name'])) {
-  print_r($_POST);
+  #print_r($_POST);
   #session_start();
-  print_r($_SESSION);
+  #print_r($_SESSION);
 
   $data_store = $_SESSION['all_data_dir'];
 

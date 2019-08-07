@@ -30,10 +30,10 @@ require("functions.php");
 
 session_start();
 if(!empty($_POST)){
-  print_r($_POST);
-  echo "<br>";
-  print_r($_FILES);
-  echo "<br>";
+  #print_r($_POST);
+  #echo "<br>";
+  #print_r($_FILES);
+  #echo "<br>";
 
   $fastq_files=$_FILES['raw_data'];
   $fasta_file=array('name'=>"fasta");
@@ -55,7 +55,7 @@ if(!empty($_POST)){
 	  "gtf_file"=>$gtf_file['name'],
 	  "meta_data"=>$meta_file['name']);
 
-  print_r($_SESSION);
+  #print_r($_SESSION);
 
   # move the file to user's directory
   parse_multifile($fastq_files, $data_store);
@@ -65,12 +65,12 @@ if(!empty($_POST)){
   $meta_data_dir = $data_store.$meta_file['name'];
   $upload_data_names = $fastq_files['name'];
   $meta_data_names = parse_csv_to_names($meta_data_dir, $delimiter=',');
-  echo "<br>meta dir:";
-  print_r($meta_data_dir);
-  echo "<br>meta: ";
-  print_r($meta_data_names);
-  echo "<br>upload: ";
-  print_r($upload_data_names);
+  #echo "<br>meta dir:";
+  #print_r($meta_data_dir);
+  #echo "<br>meta: ";
+  #print_r($meta_data_names);
+  #echo "<br>upload: ";
+  #print_r($upload_data_names);
   
   $check_status = check_file($meta_data_names, $upload_data_names, $data_store);
 

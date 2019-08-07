@@ -408,7 +408,7 @@ def add_de_conf_old(value_dict):
 
 def main():
 	input_dict = manipulate_args()
-	print(input_dict)
+	#print(input_dict)
 	ret = generate_conf(input_dict)
 	print(ret)
 	ret = add_de_conf(input_dict)

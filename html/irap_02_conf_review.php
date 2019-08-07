@@ -17,23 +17,17 @@ foreach ($raw_data_files as $f) {
   echo "<br>";
 }
 
-echo "<p>Reference data:</p>";
-$reference_data=$names['reference'];
-echo "&nbsp";
-echo $reference_data;
-echo "<br>";
-
-echo "<p>GTF files:</p>";
-$gtf_data=$names['gtf_file'];
-echo "&nbsp";
-echo $gtf_data;
-echo "<br><br><br>";
-
 echo "<b><p>Methods selected:</p></b>";
 $conf_file=$_SESSION['conf'];
-foreach ($conf_file as $k=>$v){
-  print_r("&nbsp".$k.": ".$v."<br>");
-}
+
+print_r('Project name: '.$conf_file['name']);
+echo "<br>";
+print_r('Species: '.$conf_file['species']);
+echo "<br>";
+print_r('Alignment method: '.$conf_file['mapper']);
+echo "<br>";
+print_r('Quantification: '.$conf_file['quantification']);
+
 echo "<br>";
 
 echo "<b><p>Your case code is:</p></b>";
