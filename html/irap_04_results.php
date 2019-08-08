@@ -1,8 +1,13 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <h1>iRAP result page</h1>
-
+<?php
+  require "header.php";
+?>
+<div class="irap-title">
+  <div class="container">
+    <h1>iRAP result page</h1>
+  </div>
+</div>
+<div class="padding-div"></div>
+<div class="container">
 <form name="case_number" action="?" method="post" enctype="multipart/form-data">
 
   <div name="name">
@@ -17,7 +22,7 @@
 
   <br>
 
-  <input type="submit" name="submit" value="Submit options" />
+  <input class="btn btn-default" type="submit" name="submit" value="Submit options" />
 
 </form>
 
@@ -35,15 +40,17 @@ if (isset($_POST['submit'])){
   $file_add = '/users/'.$_POST['name'].'/'.$case_id.'/'.$file_name.'.tar.gz';
   print_r($file_add."<br>");
 
+
 } else {
   echo "<br>Your case id is not set, set it in the above text box"."<br>";
 }
 
-echo '<a href='.$file_add.' download><button>Download results</button></a>';
+echo '<a class="btn irap-btn" role="button" href='.$file_add.' download>Download results</a>';
 
 ?>
-
-</body>
-</html>
+</div>
+<?php
+  require "footer.php";
+?>
 
 

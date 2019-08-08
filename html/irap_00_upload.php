@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <h1>iRAP upload data and reference files:</h1>
-  <h3>Data:</h3>
-<form name="data_file" action="?" method="post" enctype="multipart/form-data">
-  <div name="raw_data">
-    <b><label>Raw data:</label></b>
-    <input type="file" name="raw_data[]" id="raw_data" multiple/>
-    <br />
+<?php
+  require "header.php";
+?>
+
+<div class="irap-title">
+  <div class="container">
+    <h1>Upload fastq data and meta data:</h1> 
+    <p>The fastq files should be valid, and corresponded to the meta data file (must be csv file), which means that names of the fastq files in your metadata should be the same with your uploaded fastq files. Plus, your cvs file should have multiple conditions and district file names. See an example file here.</p> 
   </div>
+</div>
 
-  <br>
-
-  <div name="meta_data">
-    <b><label>Meta data:</label></b>
-    <input type="file" name="meta_data" id="meta_data" />
-    <br />
-  </div>
-
-  <br>
-
-  <input type="submit" name="submit" value="Upload" />
-
+<div class="container">
+  <form class="irap-form" name="data_file" action="?" method="post" enctype="multipart/form-data">
+          <label><b>Raw data:</b></label>
+	  <input type="file" name="raw_data[]" id="raw_data" multiple/>
+	  <br>
+          <label><b>Meta data:</b></label>
+          <input type="file" name="meta_data" id="meta_data">
+          <br>
+          <input class="btn btn-default" type="submit" name="submit" value="Upload" />
 </form>
 
 <?php
@@ -99,7 +95,8 @@ if(!empty($_POST)){
 
 <br>
 
-<a href="irap_01_conf.php"><button>Next: iRAP options</button></a>
-
-</body>
-</html>
+<a class="btn irap-btn" href="irap_01_conf.php" role='botton'>Next: iRAP options</a>
+</div>
+<?php
+require "footer.php";
+?>

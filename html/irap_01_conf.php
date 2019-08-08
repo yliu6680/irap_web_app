@@ -1,97 +1,100 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <h1>iRAP set options:</h1>
-  <h3>Mehods:</h3>
-
-<form name="conf_file" action="?" method="post" content-type="multipart/form-data" >
-  <div name="name">
-    <b>Project name:</b></br>
-    <input type="text" name="name" id="name">
+<?php
+  require "header.php";
+?>
+<div class="irap-title">
+  <div class="container">
+    <h1>Select your methods for the analysis</h1>
   </div>
+</div>
 
-  <br>
+<div class="container">
+  <form class="irap-form" name="conf_file" action="?" method="post" content-type="multipart/form-data" >
+    <div name="name">
+      <b>Project name:</b><br>
+      <input type="text" name="name" id="name">
+    </div>
 
-  <div name="species">
-    <b>Species:</b></br>
-    <select name="species" id="species">
-      <option value="Human">Human</option>
-      <option value="Mouse">Mouse</option>
-      <option value="Zebrafish">Zebrafish</option>
-      <option value="ecoli_k12">ecoli_k12</option>
-      <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
-    </select>
-  </div>
+    <br>
 
-  <br>
+    <div name="species">
+      <b>Species:</b><br>
+      <select name="species" id="species">
+        <option value="Human">Human</option>
+        <option value="Mouse">Mouse</option>
+        <option value="Zebrafish">Zebrafish</option>
+        <option value="ecoli_k12">ecoli_k12</option>
+        <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
+      </select>
+    </div>
 
-  <div name="mapper" id="mapper">
-    <b>Alignment tools:</b><br/>
+    <br>
 
-    <label for="STAR">STAR</label>
-    <input type="radio" name="mapper" id="star" value="star"/>
+    <div name="mapper" id="mapper">
+      <b>Alignment tools:</b><br/>
 
-    <label for="TopHat2">TopHat2</label>
-    <input type="radio" name="mapper" id="tophat2" value="tophat2"/>
+      <label for="STAR">STAR</label>
+      <input type="radio" name="mapper" id="star" value="star" checked/>
 
-    <label for="Bowtie2">Bowtie2</label>
-    <input type="radio" name="mapper" id="bowtie2" value="bowtie2"/>
+      <label for="TopHat2">TopHat2</label>
+      <input type="radio" name="mapper" id="tophat2" value="tophat2"/>
 
-    <label for="BWA2">BWA2</label>
-    <input type="radio" name="mapper" id="bwa2" value="bwa2"/>
+      <label for="Bowtie2">Bowtie2</label>
+      <input type="radio" name="mapper" id="bowtie2" value="bowtie2"/>
 
-    <label for="MapSplice">MapSplice</label>
-    <input type="radio" name="mapper" id="mapsplice" value="mapsplice"/>
+      <label for="BWA2">BWA2</label>
+      <input type="radio" name="mapper" id="bwa2" value="bwa2"/>
 
-  </div>
+      <label for="MapSplice">MapSplice</label>
+      <input type="radio" name="mapper" id="mapsplice" value="mapsplice"/>
 
-  <br>
+    </div>
 
-  <div name="Quantification" id="Quantification">
-    <b>Quantification tools:</b><br/>
+    <br>
 
-    <label for="Cufflinks2">Cufflinks2</label>
-    <input type="radio" name="quantification" id="Cufflinks2" value="cufflinks2"/>
+    <div name="Quantification" id="Quantification">
+      <b>Quantification tools:</b><br>
 
-    <label for="HT-Seq2">HT-Seq2</label>
-    <input type="radio" name="quantification" id="HT-Seq2" value="htseq2"/>
+      <label for="Cufflinks2">Cufflinks2</label>
+      <input type="radio" name="quantification" id="Cufflinks2" value="cufflinks2"/>
 
-    <label for="Kallisto">Kallisto</label>
-    <input type="radio" name="quantification" id="Kallisto" value="kallisto"/>
+      <label for="HT-Seq2">HT-Seq2</label>
+      <input type="radio" name="quantification" id="HT-Seq2" value="htseq2"/>
 
-    <label for="Salmon">Salmon</label>
-    <input type="radio" name="quantification" id="Salmon" value="salmon"/>
+      <label for="Kallisto">Kallisto</label>
+      <input type="radio" name="quantification" id="Kallisto" value="kallisto"/>
 
-    <label for="FeatureCounts">FeatureCounts</label>
-    <input type="radio" name="quantification" id="FeatureCounts" value="featurecounts"/>
+      <label for="Salmon">Salmon</label>
+      <input type="radio" name="quantification" id="Salmon" value="salmon"/>
+
+      <label for="FeatureCounts">FeatureCounts</label>
+      <input type="radio" name="quantification" id="FeatureCounts" value="featurecounts" checked/>
 
 
-  </div>
+    </div>
 
-  <br>
+    <br>
 
-  <div name="DE_methods" id="DE_methods">
-    <b>Diffierential expression analysis tools:</b><br/>
+    <div name="DE_methods" id="DE_methods">
+      <b>Diffierential expression analysis tools:</b><br>
 
-    <label for="Cuffdiff2">Cuffdiff2</label>
-    <input type="radio" name="DE_methods" id="Cuffdiff2" value="cuffdiff2"/>
+      <label for="Cuffdiff2">Cuffdiff2</label>
+      <input type="radio" name="DE_methods" id="Cuffdiff2" value="cuffdiff2"/>
 
-    <label for="DESeq2">DESeq2</label>
-    <input type="radio" name="DE_methods" id="DESeq2" value="deseq2"/>
+      <label for="DESeq2">DESeq2</label>
+      <input type="radio" name="DE_methods" id="DESeq2" value="deseq2" checked/>
 
-    <label for="EdgeR">EdgeR</label>
-    <input type="radio" name="DE_methods" id="EdgeR" value="edger" />
+      <label for="EdgeR">EdgeR</label>
+      <input type="radio" name="DE_methods" id="EdgeR" value="edger" />
 
-  </div>
+    </div>
 
-  <br>
+    <br>
 
-  <input type="submit" name="submit" value="Submit options" />
+    <input class="btn btn-default" type="submit" name="submit" value="Submit options" />
 
-</form>
+  </form>
 
 <?php
-session_start();
 if (isset($_POST['name'])) {
   #print_r($_POST);
   #session_start();
@@ -145,8 +148,10 @@ if (isset($_POST['name'])) {
 ?>
 
 <br>
-<a href='irap_02_conf_review.php'><button>Next: review iRAP options</button></a>
+<a class="btn irap-btn" href='irap_02_conf_review.php' role="button">Next: review iRAP options</a>
+</div>
 
-</body>
-</html>
+<?php
+  require "footer.php";
+?>
 

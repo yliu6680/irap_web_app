@@ -1,21 +1,37 @@
-<!DOCTYPE html>
-<html>
-<body>
+<?php
+  require "header.php";
+?>
+<div class="irap-title">
+  <div class="container">
     <h1>iRAP analysis login page</h1>
+  </div>
+</div>
 
-<form action="?" method="post">
-名字: <input type="text" id="UsrName" name="UsrName">
-<input type="submit" value="login">
-</form>
+<div class="container">
+  <form action="?" method="post" class="irap-form">
+    <div class="row">
+      <div class="form-group col-lg-4">
+        <label>Username</label>
+        <input type="text" class="form-control" id="UsrName" name="UsrName">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4">
+        <label>Password</label>
+        <input type="password" class="form-control" id="Password" name="Password">
+      </div>
+    </div>
+  <input type="submit" value="login">
+  </form>
+</div>
+
 
 <?php
-echo exec('whoami')."</br>";
+#echo exec('whoami')."</br>";
 if (isset($_POST['UsrName'])) {
-  session_start();
+  #session_start();
   $_SESSION['usrname']=$_POST['UsrName'];
-
-  echo $_SESSION;
-
+  print_r($SESSION);
   $UserName = $_POST["UsrName"];
   $cmd1 = shell_exec("python3 /var/www/script/generate_dir.py ".$UserName." 2>&1");
   echo $cmd1;
@@ -34,7 +50,5 @@ if (isset($_POST['UsrName'])) {
   header("Location: irap_00_upload.php");
 
 }
+require "footer.php";
 ?>
-
-</body>
-</html>

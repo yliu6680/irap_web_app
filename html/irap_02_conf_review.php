@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <h1>iRAP upload data and reference files:</h1>
-  <h3>Review:</h3>
-
+<?php
+  require "header.php";
+?>
+<div class="irap-title">
+  <div class="container">
+    <h1>Review your uploded files and selected methods:</h1>
+  </div>
+</div>
+<div class="padding-div"></div>
+<div class="container">
 <?php
 session_start();
 echo "<b><p>Uploaded data:</p></b>";
@@ -38,15 +42,16 @@ echo "<br>";
 $usrname=$_SESSION['usrname'];
 echo "<b><p>Download configuration file:</p></b>";
 echo "&nbsp";
-echo "<a href='users/".$usrname."/".$_SESSION['md5_code']."/".$conf_file['name'].".conf'><button>Download</button></a>";
+echo "<a class='btn btn-default' role='button' href='users/".$usrname."/".$_SESSION['md5_code']."/".$conf_file['name'].".conf'>Download</a>";
 echo "<br>";
 
 ?>
 
 <br>
 
-<a href='irap_03_analysis.php'><button>Next: run the iRAP pipeline</button></a>
-
-</body>
-</html>
+<a class="btn irap-btn" role="button" href='irap_03_analysis.php'>Next: run the iRAP pipeline</a>
+</div>
+<?php
+  require "footer.php";
+?>
 
