@@ -144,11 +144,12 @@ if (isset($_POST['name'])) {
   
   print_r($cmd);
 
+  echo "<br><a class='btn irap-btn' href='irap_02_conf_review.php' role='button'>Next: review iRAP options</a>";
+
 }
 ?>
 
 <br>
-<a class="btn irap-btn" href='irap_02_conf_review.php' role="button">Next: review iRAP options</a>
 </div>
 
 <?php

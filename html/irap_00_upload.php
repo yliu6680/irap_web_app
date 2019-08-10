@@ -71,7 +71,9 @@ if(!empty($_POST)){
   $check_status = check_file($meta_data_names, $upload_data_names, $data_store);
 
   if ($check_status == "success"){
-    echo "<script>alert('success;')</script>";
+  echo "<br><a class='btn irap-btn' href='irap_01_conf.php' role='botton'>Next: iRAP options</a>";
+  echo "<div class='padding-div'></div>";  
+  echo "<script>alert('success;')</script>";
   }
   elseif ($check_status == "fastq files name error") {
     echo "<script>alert('fastq files name error;')</script>";
@@ -94,9 +96,9 @@ if(!empty($_POST)){
 ?>
 
 <br>
-
-<a class="btn irap-btn" href="irap_01_conf.php" role='botton'>Next: iRAP options</a>
+<div class='padding-div'></div>
 </div>
+
 <?php
 require "footer.php";
 ?>

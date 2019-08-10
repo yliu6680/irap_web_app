@@ -1,5 +1,8 @@
 <?php
   require "header.php";
+  session_start();
+  session_unset();
+  session_destroy();
 ?>
 <div class="irap-title">
   <div class="container">
@@ -29,7 +32,7 @@
 <?php
 #echo exec('whoami')."</br>";
 if (isset($_POST['UsrName'])) {
-  #session_start();
+  session_start();
   $_SESSION['usrname']=$_POST['UsrName'];
   print_r($SESSION);
   $UserName = $_POST["UsrName"];

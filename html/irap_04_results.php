@@ -40,12 +40,14 @@ if (isset($_POST['submit'])){
   $file_add = '/users/'.$_POST['name'].'/'.$case_id.'/'.$file_name.'.tar.gz';
   print_r($file_add."<br>");
 
+  echo '<br><a class="btn irap-btn" role="button" href='.$file_add.' download>Download results</a>';
+
+  echo '<br><br>some download links or images';
+
 
 } else {
   echo "<br>Your case id is not set, set it in the above text box"."<br>";
 }
-
-echo '<a class="btn irap-btn" role="button" href='.$file_add.' download>Download results</a>';
 
 ?>
 </div>

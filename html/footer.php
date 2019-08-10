@@ -3,7 +3,7 @@
     <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
     	<div class="container">
     		<div class="navbar-text pull-left">
-    			<p>© 2019 IRAP Monaj Bhasin's lab</p>
+    			<p>© 2019 IRAP Manoj Bhasin's lab</p>
     		</div>
     	</div>
     </div>

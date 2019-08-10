@@ -51,6 +51,7 @@ echo "<br>";
 
 <a class="btn irap-btn" role="button" href='irap_03_analysis.php'>Next: run the iRAP pipeline</a>
 </div>
+<div class="padding-div"></div>
 <?php
   require "footer.php";
 ?>
