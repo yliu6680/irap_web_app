@@ -159,5 +159,29 @@ function get_column(){
   return 0;
 }
 
+function mysqli_get_email_by_id($id) {
+  require "includes/dbh.inc.php";
+  
+  $sql = "SELECT emailUsers FROM users WHERE idUsers=?;";
+  $stmt = mysqli_stmt_init($conn);
+  $email = 'aaa';
+  if (mysqli_stmt_prepare($stmt, $sql)) {
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($result)) {      
+      $email = $row['emailUsers'];
+    } else {
+      echo "error in fetch";
+    }
+  } else {
+    echo "error in prepare";
+  }
+  mysqli_stmt_close($stmt);
+  mysqli_close($conn);
+  return $email;
+  
+}
 ?>
 

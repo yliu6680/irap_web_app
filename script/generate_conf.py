@@ -1,6 +1,7 @@
 
 import sys, getopt, os
 import pandas as pd
+import json
 
 def usage():
 	print("""A script to generate a configuration file for the irap pipeline: 
@@ -30,6 +31,7 @@ def usage():
 		-h --help                    : help
 		-t --template_dir            : template file directory, couldn't be none
 		-o --output_dir              : output file directory, couldn't be none
+		-j --json_dir                : directory of the json file that saves the irap options
 		-a --meta_data               : meta_data directory, couldn't be none if do de analysis
 		""")
 
@@ -44,10 +46,10 @@ def manipulate_args():
 	mapper, quant_method, quant_norm_tool, quant_norm_method, de_method, gene_de_min_count, transcript_de_min_count, exon_de_min_count = "bowtie1", "htseq2", "irap", "fpkm", "deseq2", 0, 0, 0
 
 	# other para
-	template_dir, output_dir, meta_data = None, None, None
+	template_dir, output_dir, meta_data, json_dir = None, None, None, None
 
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "n:s:r:g:u:d:c:m:q:e:ht:o:a:", ["name=", "species=", "reference=", "gtf_file=", "user_trans=", "data_dir=", "cont_index=", "mapper=", "quant_method=", "quant_norm_tool=", "quant_norm_method=", "de_method=", "gene_de_min_count=", "transcript_de_min_count=", "exon_de_min_count=", "help", "template_dir=", "output_dir=", "meta_data="])
+		opts, args = getopt.getopt(sys.argv[1:], "n:s:r:g:u:d:c:m:q:e:ht:o:a:j:", ["name=", "species=", "reference=", "gtf_file=", "user_trans=", "data_dir=", "cont_index=", "mapper=", "quant_method=", "quant_norm_tool=", "quant_norm_method=", "de_method=", "gene_de_min_count=", "transcript_de_min_count=", "exon_de_min_count=", "help", "template_dir=", "output_dir=", "meta_data=", "json_dir="])
 		for o, a in opts:
 			if o in ("-h", "--help"):
 				usage()
@@ -94,6 +96,8 @@ def manipulate_args():
 				output_dir = a
 			elif o in ("-a", "--meta_data"):
 				meta_data = a
+			elif o in ("-j", "--json_dir"):
+				json_dir = a
 
 			else:
 				pass
@@ -108,7 +112,7 @@ def manipulate_args():
 	#print(args)
 	#print(name, species, reference, gtf_file, user_trans, data_dir, cont_index, mapper, quant_method, quant_norm_tool, quant_norm_method, de_method, gene_de_min_count, transcript_de_min_count, exon_de_min_count, meta_data)
 
-	temp_dict = {"name" : name, "species": species, "reference": reference, "gtf_file": gtf_file, "user_trans": user_trans, "data_dir": data_dir, "cont_index": cont_index, "mapper": mapper, "quant_method": quant_method, "quant_norm_tool": quant_norm_tool, "quant_norm_method": quant_norm_method, "de_method": de_method, "gene_de_min_count": gene_de_min_count, "transcript_de_min_count": transcript_de_min_count, "exon_de_min_count": exon_de_min_count, "template_dir": template_dir, "output_dir": output_dir, "meta_data": meta_data}
+	temp_dict = {"name" : name, "species": species, "reference": reference, "gtf_file": gtf_file, "user_trans": user_trans, "data_dir": data_dir, "cont_index": cont_index, "mapper": mapper, "quant_method": quant_method, "quant_norm_tool": quant_norm_tool, "quant_norm_method": quant_norm_method, "de_method": de_method, "gene_de_min_count": gene_de_min_count, "transcript_de_min_count": transcript_de_min_count, "exon_de_min_count": exon_de_min_count, "template_dir": template_dir, "output_dir": output_dir, "meta_data": meta_data, "json_dir":json_dir}
 	#temp_list = [project_name, species, reference, gtf_file, user_trans, data_dir, cont_index, mapper, quant_method, quant_norm_tool, quant_norm_method, de_method, gene_de_min_count, transcript_de_min_count, exon_de_min_count]
 
 	return temp_dict
@@ -139,7 +143,13 @@ def generate_conf(value_dict):
 		f2.write(line)
 	f2.close()
 
-	return "sucess; and write the file to {}".format(output_dir)
+	method_dict = {
+		"mapper": value_dict['mapper'],
+		"quantification": value_dict['quant_method'],
+		"de_method": value_dict['de_method']
+	}
+
+	return ("sucess; and write the file to {}".format(output_dir), method_dict)
 
 #import pandas as pd
 #meta_file = "C:/Users/liuyu/Desktop/Spring2019/bidmc/html/scripts/meta_data.csv"
@@ -360,59 +370,38 @@ def add_de_conf(value_dict):
 	for k, v in deDict['libiraies'].items():
 		iter_write(f, v)
 	f.close()
-	return "sucess; and add differential expression para to the configuration file;"
 
-def add_de_conf_old(value_dict):
-	output_dir, meta_file = value_dict['output_dir'], value_dict['meta_data']
-	meta_data = pd.read_csv(meta_file)
-	samples = meta_data['samples'].tolist()
-	treatment = meta_data['treatment'].tolist()
-	new_dict = dict()
-	conds = meta_data['treatment'].unique().tolist()
-	for i in range(len(conds)):
-		new_dict[conds[i]] = []
-	for i in range(len(samples)):
-		new_dict[treatment[i]].append(("F" + str(i), samples[i]))
+	meta_dict = {
+		'lib_fastq': libraryFastqMap,
+		'cond_lib': groupLibraryMap
+	}
 
-	# start writing    
-	
-	f = open(output_dir, "a+")
-	f.write('contrasts=' + conds[0] + 'vs' + conds[1] + ' ' + conds[1] + 'vs' + conds[0] + '\n')
-	f.write(conds[0] + 'vs' + conds[1] + '=' + conds[0] + ' ' + conds[1] + '\n')
-	f.write(conds[1] + 'vs' + conds[0] + '=' + conds[1] + ' ' + conds[0] + '\n')
+	return ("sucess to add differential expression para to the configuration file;", meta_dict)
 
-	# prepare writing part of the file
-	conds_0, conds_1, se = conds[0] + '=', conds[1] + '=', 'se='
-	for i in range(len(new_dict[conds[0]])):
-		conds_0 += new_dict[conds[0]][i][0] + ' '
-		se += new_dict[conds[0]][i][0] + ' '
-	for i in range(len(new_dict[conds[1]])):
-		conds_1 += new_dict[conds[1]][i][0] + ' '
-		se += new_dict[conds[1]][i][0] + ' '
-    
-	# continue writing
-	f.write(conds_0 + '\n')
-	f.write(conds_1 + '\n')
-	f.write(se + '\n')
+def save_json(value_dict, method_dict, meta_dict):
+	json_dir = value_dict['json_dir']
+	data_dict = {
+                'name': value_dict['name'],
+		'method_dict': method_dict,
+		'meta_dict': meta_dict
+	}
 
-	# writing last part of the file
-	for COND in conds:
-		temp = new_dict[COND]
-		for t in temp:
-			f.write(t[0] + '=' + t[1] + '\n')
-			f.write(t[0] + '_rs=50' + '\n')
-			f.write(t[0] + '_qual=33' + '\n')
-	f.close()
-	
-	return "sucess; and add differential expression para to the configuration file;"
+	with open(json_dir, 'w') as f:
+		json.dump(data_dict, f, indent=4)
+		f.close()
+
+	return "success to save irap optins in jason file;"
 
 def main():
 	input_dict = manipulate_args()
 	#print(input_dict)
-	ret = generate_conf(input_dict)
+	ret, method_dict = generate_conf(input_dict)
 	print(ret)
-	ret = add_de_conf(input_dict)
+	ret, meta_dict = add_de_conf(input_dict)
 	print(ret)
+	ret = save_json(input_dict, method_dict, meta_dict)
+	print(ret)
+
 
 if __name__ == '__main__':
 	main()

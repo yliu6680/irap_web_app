@@ -1,0 +1,8 @@
+{
+  "TemplateName": "IRAP_registration_confirmation_0813",
+  "FromEmailAddress": "ld20171225@gmail.com",
+  "TemplateSubject": "Please confirm your registration",
+  "TemplateContent": "<html><head>Hello welcome to IRAP website,</head><body style=‘font-family:sans-serif;'><h1 style='text-align:center'>Verification of registration</h1><p>We are happy for your registration. There's the one last step to complete before your can get the email notification of our server, just click the following link to verify your email address.</p></body></html>",
+  "SuccessRedirectionURL": "http://ec2-52-73-44-205.compute-1.amazonaws.com/irap_login.php",
+  "FailureRedirectionURL": "http://ec2-52-73-44-205.compute-1.amazonaws.com/error_pages/normal_404.php"
+}

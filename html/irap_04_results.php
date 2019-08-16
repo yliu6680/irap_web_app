@@ -1,58 +1,13 @@
 <?php
   require "header.php";
-?>
-<div class="irap-title">
-  <div class="container">
-    <h1>iRAP result page</h1>
-  </div>
-</div>
-<div class="padding-div"></div>
-<div class="container">
-<form name="case_number" action="?" method="post" enctype="multipart/form-data">
 
-  <div name="name">
-    <b>Please enter your user name:</b></br>
-    <input type="text" name="name" id="name">
-  </div>
+  if (isset($_SESSION['usrname'])){
+    $reffer_from_php = 0;
+    require "includes/irap_04_results.inc.php";
+  } else {
+    header('Location: error_pages/need_login.php');
+  }
 
-  <div name="name">
-    <b>Please enter your case number:</b></br>
-    <input type="text" name="case_id" id="case_id">
-  </div>
-
-  <br>
-
-  <input class="btn btn-default" type="submit" name="submit" value="Submit options" />
-
-</form>
-
-<?php
-#session_start();
-ini_set('display_errors', true);
-error_reporting(E_ALL);
-$file_add = "";
-
-if (isset($_POST['submit'])){
-  $case_id=$_POST['case_id'];
-  #$conf_file=$_SESSION['conf'];
-  print_r("<br>Your case id is:".$case_id.", download your result:");
-  $file_name = "result";
-  $file_add = '/users/'.$_POST['name'].'/'.$case_id.'/'.$file_name.'.tar.gz';
-  print_r($file_add."<br>");
-
-  echo '<br><a class="btn irap-btn" role="button" href='.$file_add.' download>Download results</a>';
-
-  echo '<br><br>some download links or images';
-
-
-} else {
-  echo "<br>Your case id is not set, set it in the above text box"."<br>";
-}
-
-?>
-</div>
-<?php
-  require "footer.php";
-?>
+  require 'footer.php';
 
 
