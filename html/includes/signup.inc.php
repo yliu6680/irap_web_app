@@ -45,8 +45,7 @@ if (isset($_POST['signup-submit'])) {
     $status=1;
     $log='';
     putenv('AWS_DEFAULT_REGION=us-east-1'); 
-    putenv('AWS_ACCESS_KEY_ID=AKIAIIPZIDSDDFHD4BOQ'); 
-    putenv('AWS_SECRET_ACCESS_KEY=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');
+
     exec($command.' 2>&1',$log,$status);
     if ($status) {
       header("Location: ../irap_signup.php?error=invalidmail&uid=".$username);
